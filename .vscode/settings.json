@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.eex": "HTML (EEx)",
+        "*.heex": "Eex",
+        "*.leex": "HTML (EEx)",
+        "*.tpp": "cpp",
+        "memory": "cpp",
+        "random": "cpp",
+        "optional": "cpp"
+    }
+}
