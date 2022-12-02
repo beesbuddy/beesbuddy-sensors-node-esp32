@@ -8,11 +8,26 @@
 #include <HeatIndex.h>
 #include <Communication.h>
 
+// Monitoring settings
+#define SerialMon                    Serial
+#define MONITOR_BAUD_RATE            115200
+
+// DHT11 settings
+#define DHT_DATA_PIN                25
+#define DHT_VCC_PIN                 26
+
+// Load cell settings
+#define LOADCELL_VCC_PIN            4
+#define LOADCELL_DOUT_PIN           19
+#define LOADCELL_SCK_PIN            18
+#define LOAD_SCALE_FACTOR           22.988
+#define LOADCELL_GAIN               128
+
 #ifdef SCALE_MODULE
 ScaleModule::Scale scale(
-    LOADCELL_DOUT_PIN, 
-    LOADCELL_SCK_PIN, 
-    LOADCELL_GAIN, 
+    LOADCELL_DOUT_PIN,
+    LOADCELL_SCK_PIN,
+    LOADCELL_GAIN,
     LOAD_SCALE_FACTOR,
     DEFAULT_DELAY,
     SerialMon
@@ -88,12 +103,12 @@ void loop()
 
 #ifdef EMULATE_SENSORS
     sprintf(h, "%8.0f", random(1000000));
-    sprintf(t, "%4.1f", random(100)); 
-    sprintf(h, "%4.1f", random(100)); 
+    sprintf(t, "%4.1f", random(100));
+    sprintf(h, "%4.1f", random(100));
 #endif
 
 #ifdef COMMUNICATION_MODULE
-    communication.write(SERVICE_UUID, MQTT_TOPIC, w, t, h);
+    communication.write(CLIENT_UUID, MQTT_TOPIC, w, t, h);
     delay(MESSAGE_DELAY);
 #endif
 
