@@ -13,7 +13,7 @@ void reset(std::stringstream &stream)
 }
 
 template<typename ... Args>
-std::string string_format(const std::string &format, Args ... args)
+std::string formatString(const std::string &format, Args ... args)
 {
     int size_s = std::snprintf(nullptr, 0, format.c_str(), args ...) + 1;
 

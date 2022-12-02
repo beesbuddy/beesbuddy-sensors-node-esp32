@@ -7,6 +7,6 @@
 void reset(std::stringstream &stream);
 
 template<typename ... Args>
-std::string string_format(const std::string &format, Args ... args);
+std::string formatString(const std::string &format, Args ... args);
 
 #endif /* _UTILS_H */
