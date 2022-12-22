@@ -90,6 +90,12 @@ void loop()
     char t[6];
     char h[6];
 
+#ifdef EMULATE_SENSORS
+    sprintf(w, "%8.0f", random(100000, 1000000));
+    sprintf(t, "%4.1f", random(10, 100));
+    sprintf(h, "%4.1f", random(10, 100));
+#endif
+
 #ifdef SCALE_MODULE
     ScaleModule::Data sData = scale.read();
     sprintf(w, "%8.0f", abs(sData.weight));
@@ -101,16 +107,13 @@ void loop()
     sprintf(h, "%4.1f", hData.humidity);
 #endif
 
-#ifdef EMULATE_SENSORS
-    sprintf(h, "%8.0f", random(1000000));
-    sprintf(t, "%4.1f", random(100));
-    sprintf(h, "%4.1f", random(100));
-#endif
-
 #ifdef COMMUNICATION_MODULE
     communication.write(CLIENT_UUID, MQTT_TOPIC, w, t, h);
     delay(MESSAGE_DELAY);
 #endif
 
+    SerialMon.print("received data from sensors: ");
+    SerialMon.printf("t: %s, h: %s, w: %s", t, h, w);
+    SerialMon.println();
     delay(LOOP_INTERVAL);
 }
